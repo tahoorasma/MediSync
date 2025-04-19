@@ -88,7 +88,7 @@
         android:id="@+id/textViewMainTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="HealthBridge"
+        android:text="MediSync"
         android:textColor="@color/purple_200"
         android:textSize="30sp"
         android:textStyle="bold"
