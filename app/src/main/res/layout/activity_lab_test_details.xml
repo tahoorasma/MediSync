@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back1"
+    tools:context=".LabTestActivity">
+
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/titleDDName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="HealthBridge"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!-- Subtitle -->
+    <TextView
+        android:id="@+id/textViewLDPackageName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Lab Test and Packages"
+        android:textColor="#fff777"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleDDName" />
+
+
+    <!--total cost-->
+    <TextView
+        android:id="@+id/textViewLDTotalCost"
+        android:layout_width="162dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="20dp"
+        android:text="Total Cost"
+        android:textColor="@color/yellowLight"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextLDTextMultiline" />
+
+
+    <!--lab details-->
+    <EditText
+        android:id="@+id/editTextLDTextMultiline"
+        android:layout_width="366dp"
+        android:layout_height="500dp"
+        android:layout_marginTop="20dp"
+        android:padding="20dp"
+        android:inputType="textMultiLine"
+        android:lines="20"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="#B3E5FC"
+        app:layout_constraintStart_toStartOf="parent"
+        android:hint="Enter details here..."
+        app:layout_constraintTop_toBottomOf="@id/textViewLDPackageName" />
+
+
+    <Button
+        android:id="@+id/buttonLabAddToCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:text="ADD TO CART"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/buttonLabDetailBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="BACK"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
