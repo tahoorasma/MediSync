@@ -140,7 +140,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
-        android:text="@string/_24x7_mediSync"
+        android:text="@string/app_name"
         android:textColor="@color/teal_200"
         android:textSize="34sp"
         android:textStyle="bold"

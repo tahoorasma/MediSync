@@ -13,7 +13,64 @@
         android:theme="@style/Theme.MediSync"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".BookAppointmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BuyMedicineBookActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BuyMedicineDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BuyMedicineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HealthArticlesDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HealthArticlesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BookAppoinmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CartBuyMedicineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OrderDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LabTestBookActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CartLabActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LabTestDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LabTestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FindDoctorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
