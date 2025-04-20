@@ -11,8 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LoginActivity extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
 
+public class LoginActivity extends AppCompatActivity {
     EditText edUsername, edPassword;
     Button btn;
     TextView tv;
@@ -21,17 +22,20 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Initialize UI components
         edUsername = findViewById(R.id.editTextLoginUsername);
         edPassword = findViewById(R.id.editTextLoginPassword);
         btn = findViewById(R.id.buttonLogin);
         tv = findViewById(R.id.textViewNewUser);
 
+        // Set button click listener
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String username = edUsername.getText().toString();
                 String password = edPassword.getText().toString();
-                /*Database db = new Database(getApplicationContext());
+                Database db = new Database(getApplicationContext());
 
                 // Check if fields are empty
                 if(db.login(username, password)==1){
@@ -44,7 +48,7 @@ public class LoginActivity extends Activity {
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 }else{
                     Toast.makeText(getApplicationContext(), "Invalid Username and Password", Toast.LENGTH_SHORT).show();
-                } */
+                }
             }
         });
 
@@ -56,3 +60,4 @@ public class LoginActivity extends Activity {
         });
     }
 }
+
