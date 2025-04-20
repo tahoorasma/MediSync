@@ -31,7 +31,7 @@ public class LoginActivity extends Activity {
             public void onClick(View view) {
                 String username = edUsername.getText().toString();
                 String password = edPassword.getText().toString();
-                /*Database db = new Database(getApplicationContext());
+                Database db = new Database(getApplicationContext());
 
                 // Check if fields are empty
                 if(db.login(username, password)==1){
@@ -44,7 +44,7 @@ public class LoginActivity extends Activity {
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 }else{
                     Toast.makeText(getApplicationContext(), "Invalid Username and Password", Toast.LENGTH_SHORT).show();
-                } */
+                }
             }
         });
 

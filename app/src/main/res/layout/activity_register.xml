@@ -133,6 +133,7 @@
         android:layout_height="46dp"
         android:background="@drawable/btn_bg"
         android:text="REGISTER"
+        android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
