@@ -14,8 +14,8 @@ import android.widget.Toast;
 public class LoginActivity extends Activity {
 
     EditText edUsername, edPassword;
-    Button btn;
-    TextView tv;
+    Button btnLogin;
+    TextView tvReg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +23,22 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         edUsername = findViewById(R.id.editTextLoginUsername);
         edPassword = findViewById(R.id.editTextLoginPassword);
-        btn = findViewById(R.id.buttonLogin);
-        tv = findViewById(R.id.textViewNewUser);
+        btnLogin = findViewById(R.id.buttonLogin);
+        tvReg = findViewById(R.id.textViewNewUser);
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String username = edUsername.getText().toString();
                 String password = edPassword.getText().toString();
+
+                Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
+                SharedPreferences sharedpreferences = getSharedPreferences ("shared_prefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("username", username);
+                editor.apply();
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+
                 /*Database db = new Database(getApplicationContext());
 
                 // Check if fields are empty
@@ -48,11 +56,6 @@ public class LoginActivity extends Activity {
             }
         });
 
-        tv.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-            }
-        });
+        tvReg.setOnClickListener(view -> startActivity(new Intent(LoginActivity.this, RegisterActivity.class)));
     }
 }
