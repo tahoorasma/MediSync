@@ -11,6 +11,9 @@
     <color name="colorPrimaryDark">#3262C4</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#073C52</color>
+    <color name="teal">#073C52</color>
+    <color name="darkTeal">#06212C</color>
+    <color name="lightTeal">#405259</color>
     <color name="colorRed">#C11515</color>
     <color name="purpleDark">#FF210642</color>
     <color name="yellowLight">#fff777</color>

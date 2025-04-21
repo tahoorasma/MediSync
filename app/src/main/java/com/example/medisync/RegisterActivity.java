@@ -55,7 +55,7 @@ public class RegisterActivity extends Activity {
                             Toast.makeText(getApplicationContext(), "Record Inserted", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                         } else {
-                            Toast.makeText(getApplicationContext(), "Password must be at least 8 characters long and contain letters, digits, and special characters", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Password must be at least 6 characters long", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(getApplicationContext(), "Password and Confirm password didn't match", Toast.LENGTH_SHORT).show();
@@ -67,7 +67,7 @@ public class RegisterActivity extends Activity {
 
     public static boolean isValid(String passwordhere) {
         int f1 = 0, f2 = 0, f3 = 0;
-        if (passwordhere.length() < 8) {
+        if (passwordhere.length() < 6) {
             return false;
         } else {
             /*for (int p = 0; p < passwordhere.length(); p++) {

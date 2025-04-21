@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Database extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "mediSync.db";
-    private static final int DATABASE_VERSION = 2; // Incremented version number
+    private static final int DATABASE_VERSION = 2;
 
     public Database(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -35,7 +35,6 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         if (oldVersion < 2) {
-            // Example: Add a new column to the users table
             String alterUsersTable = "ALTER TABLE users ADD COLUMN phone TEXT"; // Adding a phone number column
             sqLiteDatabase.execSQL(alterUsersTable);
         }
