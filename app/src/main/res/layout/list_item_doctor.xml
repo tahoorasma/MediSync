@@ -49,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp"
-        android:background="@android:color/transparent"/>
+        android:background="@android:color/white"/>
 
     <!-- Back Button -->
     <Button

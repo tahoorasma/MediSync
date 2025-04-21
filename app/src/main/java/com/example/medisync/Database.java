@@ -51,7 +51,7 @@ public class Database extends SQLiteOpenHelper {
             db = getWritableDatabase();
             db.insert("users", null, cv);
         } catch (Exception e) {
-            e.printStackTrace(); // Log the error
+            e.printStackTrace();
         } finally {
             if (db != null) {
                 db.close();
@@ -68,10 +68,10 @@ public class Database extends SQLiteOpenHelper {
             db = getReadableDatabase();
             c = db.rawQuery("SELECT * FROM users WHERE username=? AND password=?", str);
             if (c.moveToFirst()) {
-                result = 1; // User found
+                result = 1;
             }
         } catch (Exception e) {
-            e.printStackTrace(); // Log the error
+            e.printStackTrace();
         } finally {
             if (c != null) {
                 c.close();
@@ -80,6 +80,31 @@ public class Database extends SQLiteOpenHelper {
                 db.close();
             }
         }
+        return result;
+    }
+    public void addCart(String username, String product, float price, String otype) {
+        ContentValues cv = new ContentValues();
+        cv.put("username", username);
+        cv.put("product", product);
+        cv.put("price", price);
+        cv.put("otype", otype);
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.insert("cart", null, cv);
+        db.close();
+    }
+
+    public int checkCart(String username, String product) {
+        int result = 0;
+        String[] str = {username, product};
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM cart WHERE username = ? AND product = ?", str);
+
+        if (c.moveToFirst()) {
+            result = 1;
+        }
+        c.close();
+        db.close();
         return result;
     }
 }
