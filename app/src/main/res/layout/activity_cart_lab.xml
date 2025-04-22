@@ -16,12 +16,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="MediSync"
-        android:textColor="#fff"
+        android:textColor="@color/darkTeal"
         android:textSize="30sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
 
 
     <!-- Subtitle -->
@@ -31,28 +34,27 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Lab Test and Packages"
-        android:textColor="#fff777"
+        android:textColor="@color/teal"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleDDName" />
 
-
     <!--total cost-->
     <TextView
         android:id="@+id/textViewCartTotalCost"
-        android:layout_width="162dp"
+        android:layout_width="wrap_content"
         android:layout_height="47dp"
         android:layout_marginTop="20dp"
         android:text="Total Cost"
-        android:textColor="@color/yellowLight"
+        android:layout_marginBottom="0dp"
+        android:textColor="@color/teal"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/listViewCartLabTextMultiline" />
-
 
     <!--lab details-->
     <ListView
@@ -60,7 +62,8 @@
         android:layout_width="365dp"
         android:layout_height="376dp"
         android:layout_marginTop="20dp"
-        android:background="#B3E5FC"
+        android:background="#E0F3FB"
+        android:textColor="@color/lightTeal"
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +74,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select Date"
-        android:textColor="@color/yellowLight"
+        android:textColor="@color/teal"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.135"
@@ -85,7 +89,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select Time"
-        android:textColor="@color/yellowLight"
+        android:textColor="@color/teal"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.872"
@@ -99,6 +104,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="27/10/2024"
+        android:textColor="@color/lightTeal"
+        android:textSize="20dp"
+        android:paddingRight="35dp"
+        android:backgroundTint="@color/teal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.055"
@@ -112,6 +121,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="10:00"
+        android:textColor="@color/lightTeal"
+        android:textSize="20dp"
+        android:paddingRight="35dp"
+        android:backgroundTint="@color/teal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.885"
@@ -125,6 +138,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
         android:text="CHECKOUT"
+        android:backgroundTint="@color/lightTeal"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -137,6 +152,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
         android:text="BACK"
+        android:backgroundTint="@color/teal"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

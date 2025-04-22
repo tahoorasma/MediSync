@@ -82,7 +82,7 @@ public class LabTestActivity extends AppCompatActivity {
             TextView packageName = cardView.findViewById(R.id.package_name);
             TextView packagePrice = cardView.findViewById(R.id.package_price);
             packageName.setText(packages[i][0]); // Set package name
-            packagePrice.setText("Price: PKR" + packages[i][1]); // Set package price
+            packagePrice.setText("Price: PKR " + packages[i][1]); // Set package price
             cardView.setBackgroundColor(Color.parseColor("#E0F3FB"));
             // Set an OnClickListener for the card
             cardView.setOnClickListener(new View.OnClickListener() {
