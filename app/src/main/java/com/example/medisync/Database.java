@@ -107,4 +107,49 @@ public class Database extends SQLiteOpenHelper {
         db.close();
         return result;
     }
+    public void removeCart(String username, String otype){
+        String str[] = new String[2];
+        str[0]= username;
+        str[1]= otype;
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("cart","username = ? and otype = ?",str);
+        db.close();
+    }
+
+    public void addOrder(String username, String fullname, String address ,String contact ,int pincode,String date, String time , float price, String otype) {
+        ContentValues cv = new ContentValues();
+        cv.put("Username", username);
+        cv.put("fullname", fullname);
+        cv.put("address", address);
+        cv.put("contactno", contact);
+        cv.put("pincode", pincode);
+        cv.put("date", date);
+        cv.put("time", time);
+        cv.put("amount", price);
+        cv.put("otype", otype);
+        SQLiteDatabase db = getWritableDatabase();
+        db.insert("orderplace",null,cv);
+        db.close();
+    }
+
+    public ArrayList<String> getCartData(String username, String otype) {
+        ArrayList<String> arr = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase(); // Fixed missing `=` operator
+        String[] str = new String[2]; // Use `String[]` instead of `String`
+        str[0] = username;
+        str[1] = otype;
+
+        // Corrected query syntax and method call
+        Cursor c = db.rawQuery("select * from cart where username = ? and otype = ?", str);
+        if (c.moveToFirst()) {
+            do {
+                String product = c.getString(1);
+                String price = c.getString(2);
+                arr.add(product + "$" + price);
+            } while (c.moveToNext());
+        }
+        c.close();
+        db.close();
+        return arr;
+    }
 }
