@@ -3,7 +3,6 @@ package com.example.medisync;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -31,12 +30,12 @@ public class FindDoctorActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
-        CardView dietician = findViewById(R.id.cardDietician);
-        dietician.setOnClickListener(new View.OnClickListener() {
+        CardView nutritionist = findViewById(R.id.cardNutritionist);
+        nutritionist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(FindDoctorActivity.this,DoctorDetailsActivity.class);
-                it.putExtra("title","Dietecian");
+                it.putExtra("title","Nutritionist");
                 startActivity(it);
             }
         });
