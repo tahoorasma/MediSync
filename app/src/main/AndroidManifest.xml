@@ -31,9 +31,6 @@
             android:name=".HealthArticlesActivity"
             android:exported="false" />
         <activity
-            android:name=".BookAppoinmentActivity"
-            android:exported="false" />
-        <activity
             android:name=".CartBuyMedicineActivity"
             android:exported="false" />
         <activity
