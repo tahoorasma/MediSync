@@ -31,6 +31,7 @@
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:padding="10dp"
+        android:background="#E0F3FB"
         android:text="@string/hi_nhello"
         android:textColor="@color/darkTeal"
         app:layout_constraintBottom_toBottomOf="@+id/buttonBMDAddToCart"

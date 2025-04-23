@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBlack"
+    android:background="#E0F3FB"
     android:padding="8dp">
 
     <TextView
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/textview"
-        android:textColor="#fff"
+        android:textColor="@color/darkTeal"
         android:textSize="16sp"
         android:textStyle="italic"/>
     <TextView
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/textview"
-        android:textColor="#fff000"
+        android:textColor="@color/lightTeal"
         android:textSize="14sp"
         android:textStyle="italic"/>
     <LinearLayout
@@ -33,7 +33,7 @@
             android:layout_weight="0.20"
             android:layout_height="wrap_content"
             android:text="@string/textview"
-            android:textColor="#ffff66"
+            android:textColor="@color/teal"
             android:textSize="12sp"/>
         <TextView
             android:id="@+id/line_d"
@@ -41,7 +41,7 @@
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:text="@string/textview"
-            android:textColor="#ffff66"
+            android:textColor="@color/teal"
             android:textSize="12sp"/>
         <TextView
             android:id="@+id/line_e"
@@ -49,7 +49,7 @@
             android:layout_weight="0.3"
             android:layout_height="wrap_content"
             android:text="@string/textview"
-            android:textColor="#ffff66"
+            android:textColor="@color/teal"
             android:textSize="12sp"/>
 
     </LinearLayout>
