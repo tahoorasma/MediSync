@@ -21,6 +21,10 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //Database db = new Database(getApplicationContext());
+        //db.deleteUserData("tahoor");
+
         edUsername = findViewById(R.id.editTextLoginUsername);
         edPassword = findViewById(R.id.editTextLoginPassword);
         btnLogin = findViewById(R.id.buttonLogin);

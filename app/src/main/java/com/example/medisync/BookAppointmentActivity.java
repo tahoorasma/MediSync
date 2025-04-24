@@ -86,7 +86,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Appointment already booked", Toast.LENGTH_LONG).show();
                 } else {
                     // Book the appointment
-                    db.addOrder(username, title + "=>" + fullname, address, contactno, 0, date, time, feeValue, "appointment");
+                    db.addOrder(username, fullname, address, contactno, "", date, time, feeValue, "appointment");
                     Toast.makeText(getApplicationContext(), "Your Appointment has been booked Successfully", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(BookAppointmentActivity.this, HomeActivity.class));
                 }

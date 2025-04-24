@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Database extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "mediSync.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     public Database(@Nullable Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -28,7 +28,7 @@ public class Database extends SQLiteOpenHelper {
             String qry2 = "create table cart(username text, product text, price float, otype text)";
             sqLiteDatabase.execSQL(qry2);
 
-            String qry3 = "create table orderplace(username text, fullname text, address text, contactno text, pincode int, date text, time text, amount float, otype text)";
+            String qry3 = "create table orderplace(username text, fullname text, address text, contactno text, pincode text, date text, time text, amount float, otype text)";
             sqLiteDatabase.execSQL(qry3);
         }
 
@@ -41,7 +41,17 @@ public class Database extends SQLiteOpenHelper {
             }
         }
 
-        public void addCart(String username, String product, float price, String otype) {
+        public void deleteUserData(String username) {
+            SQLiteDatabase db = getWritableDatabase();
+
+            //db.delete("users", "username = ?", new String[]{username});
+            db.delete("cart", "username = ?", new String[]{username});
+            db.delete("orderplace", "username = ?", new String[]{username});
+
+            db.close();
+        }
+
+    public void addCart(String username, String product, float price, String otype) {
             ContentValues cv = new ContentValues();
             cv.put("username", username);
             cv.put("product", product);
@@ -76,7 +86,7 @@ public class Database extends SQLiteOpenHelper {
             db.close();
         }
 
-        public void addOrder(String username, String fullname, String address ,String contact ,int pincode,String date, String time , float price, String otype) {
+        public void addOrder(String username, String fullname, String address ,String contact ,String pincode,String date, String time , float price, String otype) {
             ContentValues cv = new ContentValues();
             cv.put("Username", username);
             cv.put("fullname", fullname);
