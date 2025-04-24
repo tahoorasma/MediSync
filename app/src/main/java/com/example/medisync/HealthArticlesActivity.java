@@ -7,28 +7,28 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HealthArticlesActivity extends AppCompatActivity {
-
-
     private String [][] health_details = {
             {"Walking Daily","","","","Click More Details"},
-            {"Home Care of Covid-19","","","","Click More Details"},
+            {"Control Blood Sugar Level","","","","Click More Details"},
             {"Stop Smoking","","","","Click More Details"},
-            {"Menstrual Cramps","","","","Click More Details"},
-            {"Healthy Gut","","","","Click More Details"}
+            {"Drink More Water","","","","Click More Details"},
+            {"Healthy Gut","","","","Click More Details"},
+            {"Meditate Daily","","","","Click More Details"},
+            {"Improve Posture","","","","Click More Details"}
     };
     private int[] images ={
             R.drawable.health1,
             R.drawable.health2,
             R.drawable.health3,
             R.drawable.health4,
-            R.drawable.health5
+            R.drawable.health5,
+            R.drawable.health6,
+            R.drawable.health7
     };
     HashMap<String,String> item;
     ArrayList list;
@@ -39,11 +39,8 @@ public class HealthArticlesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_articles);
-
-
         lst = findViewById(R.id.listViewHA);
         btnBack = findViewById(R.id.buttonHABack);
-
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +48,6 @@ public class HealthArticlesActivity extends AppCompatActivity {
                 startActivity(new Intent(HealthArticlesActivity.this,HomeActivity.class));
             }
         });
-
 
         list = new ArrayList();
         for (int i =0;i<health_details.length;i++){
@@ -66,7 +62,6 @@ public class HealthArticlesActivity extends AppCompatActivity {
         sa = new SimpleAdapter(this,list,R.layout.multi_lines,new String[]{"line1","line2","line3","line4","line5"},
                 new int[]{R.id.line_a,R.id.line_b,R.id.line_c,R.id.line_d,R.id.line_e});
         lst.setAdapter(sa);
-
 
         lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
