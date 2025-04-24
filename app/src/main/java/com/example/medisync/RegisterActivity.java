@@ -44,21 +44,38 @@ public class RegisterActivity extends Activity {
                 String confirm = edConfirm.getText().toString();
                 Database db = new Database(getApplicationContext());
 
-                if (username.length() == 0 || email.length() == 0 || password.length() == 0 || confirm.length() == 0) {
-                    Toast.makeText(getApplicationContext(), "Please fill All details", Toast.LENGTH_SHORT).show();
+                if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirm.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please fill all details", Toast.LENGTH_SHORT).show();
                 } else {
                     if (!isValidEmail(email)) {
                         Toast.makeText(getApplicationContext(), "Please enter a valid email address", Toast.LENGTH_SHORT).show();
                     } else if (password.compareTo(confirm) == 0) {
                         if (isValid(password)) {
-                            db.register(username, email, password);
-                            Toast.makeText(getApplicationContext(), "Record Inserted", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                            int registrationStatus = db.register(username, email, password);
+
+                            switch (registrationStatus) {
+                                case 1:
+                                    Toast.makeText(getApplicationContext(), "Registration successful!", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                                    finish();
+                                    break;
+                                case -1:
+                                    Toast.makeText(getApplicationContext(), "Username already exists!", Toast.LENGTH_SHORT).show();
+                                    edUsername.requestFocus();
+                                    break;
+                                case -2:
+                                    Toast.makeText(getApplicationContext(), "Email already registered!", Toast.LENGTH_SHORT).show();
+                                    edEmail.requestFocus();
+                                    break;
+                                default:
+                                    Toast.makeText(getApplicationContext(), "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
                         } else {
                             Toast.makeText(getApplicationContext(), "Password must be at least 6 characters long", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(getApplicationContext(), "Password and Confirm password didn't match", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Password and confirm password didn't match", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
