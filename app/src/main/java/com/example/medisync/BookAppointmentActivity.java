@@ -21,9 +21,9 @@ import java.util.Locale;
 
 public class BookAppointmentActivity extends AppCompatActivity {
     Button btn, bookbtn;
-    Button dateButton; // Declare the date button
-    Button timeButton; // Declare the time button
-    TextView tvFee; // Declare the fees EditText
+    Button dateButton;
+    Button timeButton;
+    TextView tvFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +32,9 @@ public class BookAppointmentActivity extends AppCompatActivity {
 
         bookbtn = findViewById(R.id.buttonAppBook);
         btn = findViewById(R.id.buttonAppBack);
-        dateButton = findViewById(R.id.buttonAppDate); // Initialize the date button
-        timeButton = findViewById(R.id.buttonAppTime); // Initialize the time button
-        tvFee = findViewById(R.id.tvConsFee); // Initialize the fees EditText
+        dateButton = findViewById(R.id.buttonAppDate);
+        timeButton = findViewById(R.id.buttonAppTime);
+        tvFee = findViewById(R.id.tvConsFee);
 
         // Retrieve data from the intent
         Intent intent = getIntent();
@@ -64,7 +64,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
             Database db = new Database(getApplicationContext());
 
             // Retrieve necessary data
-            String title = "Appointment"; // Use an appropriate title if needed
+            String title = "Appointment";
             String fullname = textViewDoctorName.getText().toString();
             String address = textViewHospitalAddress.getText().toString();
             String contactno = textViewContactNumber.getText().toString();
