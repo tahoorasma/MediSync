@@ -1,5 +1,6 @@
 package com.example.medisync;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,13 +59,18 @@ public class OrderAdapter extends BaseAdapter {
         line5.setText(item.get("line5"));
 
         btnDelete.setOnClickListener(v -> {
-            db.deleteOrder(username, item.get("line4"), item.get("line5"));
-            data.remove(position);
-            notifyDataSetChanged();
-
-            Toast.makeText(context, "Order deleted", Toast.LENGTH_SHORT).show();
+            new AlertDialog.Builder(context)
+                    .setTitle("Cancel Order")
+                    .setMessage("Are you sure you want to cancel this order?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        db.deleteOrder(username, item.get("line4"), item.get("line5"));
+                        data.remove(position);
+                        notifyDataSetChanged();
+                        Toast.makeText(context, "Order canceled", Toast.LENGTH_SHORT).show();
+                    })
+                    .setNegativeButton("NO", null)
+                    .show();
         });
-
         return convertView;
     }
 }

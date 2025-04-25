@@ -85,10 +85,17 @@ public class BookAppointmentActivity extends AppCompatActivity {
                 if (db.checkAppointmentExists(username, title + "=>" + fullname, address, contactno, date, time) == 1) {
                     Toast.makeText(getApplicationContext(), "Appointment already booked", Toast.LENGTH_LONG).show();
                 } else {
-                    // Book the appointment
-                    db.addOrder(username, fullname, address, contactno, "", date, time, feeValue, "appointment");
-                    Toast.makeText(getApplicationContext(), "Your Appointment has been booked Successfully", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(BookAppointmentActivity.this, HomeActivity.class));
+                    new AlertDialog.Builder(BookAppointmentActivity.this)
+                            .setTitle("Confirm Booking")
+                            .setMessage("Do you want to book this appointment?")
+                            .setPositiveButton("Yes", (dialog, which) -> {
+                                // Book the appointment
+                                db.addOrder(username, fullname, address, contactno, "", date, time, feeValue, "appointment");
+                                Toast.makeText(getApplicationContext(), "Your Appointment has been booked Successfully", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(BookAppointmentActivity.this, HomeActivity.class));
+                            })
+                            .setNegativeButton("NO", null)
+                            .show();
                 }
             } catch (Exception e) {
                 e.printStackTrace(); // Log the error

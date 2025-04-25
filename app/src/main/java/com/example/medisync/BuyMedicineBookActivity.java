@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class BuyMedicineBookActivity extends AppCompatActivity {
 
     EditText edname, edaddress, edcontact, edpincode;
-    Button btnBooking;
+    Button btnBooking, btnBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +25,14 @@ public class BuyMedicineBookActivity extends AppCompatActivity {
         edcontact = findViewById(R.id.editTextBMBContact);
         edpincode = findViewById(R.id.editTextBMBPincode);
         btnBooking = findViewById(R.id.buttonBMBBooking);
+        btnBack = findViewById(R.id.buttonLabDetailBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(BuyMedicineBookActivity.this, BuyMedicineActivity.class));
+                finish();
+            }
+        });
 
         Intent intent = getIntent();
         String[] price = intent.getStringExtra("price").toString().split(java.util.regex.Pattern.quote(":"));
