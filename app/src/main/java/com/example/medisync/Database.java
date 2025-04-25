@@ -50,7 +50,13 @@ public class Database extends SQLiteOpenHelper {
         db.close();
     }
 
-        public void addCart(String username, String product, float price, String otype) {
+    public void removeItemFromCart(String username, String product) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("cart", "username = ? AND product = ?", new String[]{username, product});
+        db.close();
+    }
+
+    public void addCart(String username, String product, float price, String otype) {
             ContentValues cv = new ContentValues();
             cv.put("username", username);
             cv.put("product", product);
