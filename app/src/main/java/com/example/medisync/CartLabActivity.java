@@ -76,11 +76,15 @@ public class CartLabActivity extends AppCompatActivity {
         });
 
         btnCheckout.setOnClickListener(view -> {
-            Intent it = new Intent(CartLabActivity.this, LabTestBookActivity.class);
-            it.putExtra("price", tvTotal.getText());
-            it.putExtra("date", dateButton.getText());
-            it.putExtra("time", timeButton.getText());
-            startActivity(it);
+            if (list.isEmpty()) {
+                Toast.makeText(CartLabActivity.this, "Cart is empty. Please add items before checkout.", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent it = new Intent(CartLabActivity.this, LabTestBookActivity.class);
+                it.putExtra("price", tvTotal.getText());
+                it.putExtra("date", dateButton.getText());
+                it.putExtra("time", timeButton.getText());
+                startActivity(it);
+            }
         });
 
         initDatePicker();

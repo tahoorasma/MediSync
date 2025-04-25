@@ -1,6 +1,5 @@
 package com.example.medisync;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,8 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends AppCompatActivity {
 
     EditText edUsername, edPassword;
     Button btnLogin;
