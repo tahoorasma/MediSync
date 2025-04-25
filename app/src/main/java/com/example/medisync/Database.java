@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Database extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "mediSync.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 7;
 
     public Database(@Nullable Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -34,10 +34,12 @@ public class Database extends SQLiteOpenHelper {
 
         @Override
         public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-            if (oldVersion < 2) {
-                // Example: Add a new column to the users table
-                String alterUsersTable = "ALTER TABLE users ADD COLUMN phone TEXT"; // Adding a phone number column
-                sqLiteDatabase.execSQL(alterUsersTable);
+            if (oldVersion < 7) {
+                sqLiteDatabase.execSQL("DROP TABLE IF EXISTS orderplace");
+                String qry3 = "CREATE TABLE orderplace (" +
+                        "username TEXT, fullname TEXT, address TEXT, contactno TEXT, " +
+                        "pincode TEXT, date TEXT, time TEXT, amount FLOAT, otype TEXT)";
+                sqLiteDatabase.execSQL(qry3);
             }
         }
     public void deleteUserData(String username) {
@@ -53,6 +55,19 @@ public class Database extends SQLiteOpenHelper {
     public void removeItemFromCart(String username, String product) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete("cart", "username = ? AND product = ?", new String[]{username, product});
+        db.close();
+    }
+
+    public void deleteOrder(String username, String date, String otype) {
+        String o;
+        if (otype.equals("Lab Tests")) {
+            o = "lab";
+        } else if (otype.equals("Medicine")) {
+            o = "medicine";
+        } else {o = "appointment";}
+        String dt = date.split(" ")[0];
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("orderplace", "username = ? AND date = ? AND otype = ?", new String[]{username, dt, o});
         db.close();
     }
 

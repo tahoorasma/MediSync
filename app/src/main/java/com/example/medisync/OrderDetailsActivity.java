@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class OrderDetailsActivity extends AppCompatActivity {
@@ -43,7 +45,9 @@ public class OrderDetailsActivity extends AppCompatActivity {
         for (int i=0;i<order_details.length;i++) {
             order_details[i] = new String[5];
             String arrData = dbData.get(i).toString();
+            Log.d("arrData", arrData);
             String[] strData = arrData.split(java.util.regex.Pattern.quote("$"));
+            Log.d("strData", Arrays.toString(strData));
             if (strData[7].compareTo("appointment") == 0) {
                 order_details[i][0] = strData[0];
             } else if (strData[7].compareTo("lab") == 0) {
@@ -72,10 +76,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
             item.put("line5",order_details[i][4]);
             list.add(item);
         }
-        sa = new SimpleAdapter(this, list,
-                R.layout.multi_lines,
-                new String[]{"line1", "line2", "line3", "line4", "line5"},
-                new int[]{R.id.line_a, R.id.line_b, R.id.line_c, R.id.line_d, R.id.line_e,});
-        lst.setAdapter(sa);
+        OrderAdapter adapter = new OrderAdapter(this, list, username);
+        lst.setAdapter(adapter);
     }
 }

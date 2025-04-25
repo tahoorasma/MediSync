@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E0F3FB"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/line_a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/textview"
+                android:textColor="@color/darkTeal"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/line_b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/textview"
+                android:textColor="@color/lightTeal"
+                android:textSize="14sp"
+                android:textStyle="italic"/>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.3"
+            android:layout_gravity="center"
+            android:layout_marginStart="0dp"
+            android:layout_marginRight="50dp"
+            android:src="@drawable/delete_icon"
+            android:background="@android:color/transparent"
+            android:padding="8dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/line_c"
+            android:layout_width="0dp"
+            android:layout_weight="0.25"
+            android:layout_height="wrap_content"
+            android:text="@string/textview"
+            android:textColor="@color/teal"
+            android:textSize="12sp"/>
+        <TextView
+            android:id="@+id/line_d"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:text="@string/textview"
+            android:textColor="@color/teal"
+            android:textSize="12sp"/>
+        <TextView
+            android:id="@+id/line_e"
+            android:layout_width="30dp"
+            android:layout_weight="0.25"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:text="@string/textview"
+            android:textColor="@color/teal"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+</LinearLayout>

@@ -51,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
                     } else if (password.compareTo(confirm) == 0) {
                         if (isValid(password)) {
                             int registrationStatus = db.register(username, email, password);
-
                             switch (registrationStatus) {
                                 case 1:
                                     Toast.makeText(getApplicationContext(), "Registration successful!", Toast.LENGTH_SHORT).show();

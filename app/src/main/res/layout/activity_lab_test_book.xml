@@ -132,8 +132,8 @@
         android:id="@+id/buttonLTBBooking"
         android:layout_width="210dp"
         android:layout_height="46dp"
-        android:text="BOOK"
-        android:backgroundTint="@color/teal"
+        android:text="Buy"
+        android:backgroundTint="@color/lightTeal"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -142,5 +142,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.808" />
+
+    <Button
+        android:id="@+id/buttonLabDetailBack"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:text="BACK"
+        android:backgroundTint="@color/teal"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
