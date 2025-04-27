@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Database extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "mediSync.db";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
     public Database(@Nullable Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -121,27 +121,53 @@ public class Database extends SQLiteOpenHelper {
         db.insert("orderplace",null,cv);
         db.close();
     }
+    public void updateCartItemQuantity(String username, String product, int change, String otype) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT price FROM cart WHERE username = ? AND product = ? AND otype = ?",
+                new String[]{username, product, otype});
 
-        public ArrayList<String> getCartData(String username, String otype) {
-            ArrayList<String> arr = new ArrayList<>();
-            SQLiteDatabase db = getReadableDatabase(); // Fixed missing `=` operator
-            String[] str = new String[2]; // Use `String[]` instead of `String`
-            str[0] = username;
-            str[1] = otype;
+        if (cursor.moveToFirst()) {
+            float currentTotalPrice = cursor.getFloat(0);
+            cursor.close();
+            float unitPrice = currentTotalPrice;
+            // Calculate new total price
+            float newTotalPrice = currentTotalPrice + (unitPrice * change);
 
-            // Corrected query syntax and method call
-            Cursor c = db.rawQuery("select * from cart where username = ? and otype = ?", str);
-            if (c.moveToFirst()) {
-                do {
-                    String product = c.getString(1);
-                    String price = c.getString(2);
-                    arr.add(product + "$" + price);
-                } while (c.moveToNext());
+            // Don't allow price to go below unit price (quantity 1)
+            if (newTotalPrice < unitPrice) {
+                newTotalPrice = unitPrice;
             }
-            c.close();
-            db.close();
-            return arr;
+
+            // Update the price in the database
+            ContentValues cv = new ContentValues();
+            cv.put("price", newTotalPrice);
+            db.update("cart", cv, "username = ? AND product = ? AND otype = ?",
+                    new String[]{username, product, otype});
         }
+        db.close();
+    }
+
+    // Modify getCartData to include quantity
+    public ArrayList<String> getCartData(String username, String otype) {
+        ArrayList<String> arr = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        String[] str = new String[2];
+        str[0] = username;
+        str[1] = otype;
+
+        Cursor c = db.rawQuery("SELECT product, price FROM cart WHERE username = ? AND otype = ?", str);
+        if (c.moveToFirst()) {
+            do {
+                String product = c.getString(0);
+                String price = c.getString(1);
+                arr.add(product + "$" + price);
+            } while (c.moveToNext());
+        }
+        c.close();
+        db.close();
+        return arr;
+    }
 
         public ArrayList getOrderData(String username){
             ArrayList<String> arr = new ArrayList<>();

@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class BuyMedicineActivity extends AppCompatActivity {
 
-    private String[][] packages = {
+     static String[][] packages = {
             {"Panadol (Paracetamol) 500mg", "", "", "", "50"},
             {"Brufen (Ibuprofen) 400mg", "", "", "", "120"},
             {"Rigix (Cetirizine) 10mg", "", "", "", "80"},

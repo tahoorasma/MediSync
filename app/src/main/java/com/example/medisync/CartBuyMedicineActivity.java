@@ -1,6 +1,7 @@
 package com.example.medisync;
 
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,8 @@ import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,7 +30,11 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
     TextView tvTotal;
     private String[][] packages = {};
     private DatePickerDialog datePickerDialog;
-    Button dateButton, timeButton, btnCheckout, btnBack;
+    Button dateButton, btnCheckout, btnBack;
+    Database db;
+    String username;
+    float totalAmount = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,57 +45,25 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.buttonBMCartBack);
         tvTotal = findViewById(R.id.textViewBMCartTotalPrice);
         lst = findViewById(R.id.listViewBMCart);
+
         SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
-        String username = sharedPreferences.getString("username","").toString();
+        username = sharedPreferences.getString("username","").toString();
+        db = new Database(getApplicationContext());
 
-        Database db = new Database(getApplicationContext());
-        float totalAmount = 0;
-        ArrayList dbData = db.getCartData(username,"medicine");
-        //Toast.makeText(this, ""+dbData, Toast.LENGTH_LONG).show();
+        loadCartItems();
 
-        packages = new String[dbData.size()][];
-        for (int i = 0;i<packages.length;i++){
-            packages[i]= new String[5];
-        }
-
-        for (int i=0;i<dbData.size();i++){
-            String arrData = dbData.get(i).toString();
-            String[] strData = arrData.split(java.util.regex.Pattern.quote("$"));
-            packages[i][0]= strData[0];
-            packages[i][4]= "Cost : "+strData[1]+"/-";
-            totalAmount = totalAmount + Float.parseFloat(strData[1]);
-        }
-        tvTotal.setText("Total Cost : "+totalAmount);
-
-        list = new ArrayList();
-        for(int i = 0;i<packages.length;i++ ){
-            item= new HashMap<String,String>();
-            item.put("line1",packages[i][0]);
-            item.put("line2",packages[i][1]);
-            item.put("line3",packages[i][2]);
-            item.put("line4",packages[i][3]);
-            item.put("line5",packages[i][4]);
-            list.add(item);
-        }
-        sa = new SimpleAdapter(this, list, R.layout.multi_lines,
-                new String[]{"line1", "line2", "line3", "line4", "line5"},
-                new int[]{R.id.line_a, R.id.line_b, R.id.line_c, R.id.line_d, R.id.line_e,});
-        lst.setAdapter(sa);
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(CartBuyMedicineActivity.this,BuyMedicineActivity.class));
-
-            }
+        btnBack.setOnClickListener(view -> {
+            startActivity(new Intent(CartBuyMedicineActivity.this, BuyMedicineActivity.class));
         });
 
-        btnCheckout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent it = new Intent(new Intent(CartBuyMedicineActivity.this,BuyMedicineBookActivity.class));
-                it.putExtra("price",tvTotal.getText());
-                it.putExtra("date",dateButton.getText());
+        btnCheckout.setOnClickListener(view -> {
+            if (list == null || list.isEmpty()) {
+                Toast.makeText(this, "Your cart is empty. Please add items before checkout.",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                Intent it = new Intent(CartBuyMedicineActivity.this, BuyMedicineBookActivity.class);
+                it.putExtra("price", tvTotal.getText());
+                it.putExtra("date", dateButton.getText());
                 startActivity(it);
             }
         });
@@ -96,37 +71,116 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
         initDatePicker();
         setCurrentDate();
     }
+
+    private void loadCartItems() {
+        try {
+            totalAmount = 0;
+            ArrayList<String> dbData = db.getCartData(username, "medicine");
+
+            packages = new String[dbData.size()][];
+            for (int i = 0; i < packages.length; i++) {
+                packages[i] = new String[5];
+            }
+
+            for (int i = 0; i < dbData.size(); i++) {
+                String arrData = dbData.get(i);
+                String[] strData = arrData.split(java.util.regex.Pattern.quote("$"));
+                packages[i][0] = strData[0]; // product name
+                packages[i][1] = strData[1]; // price
+                packages[i][4] = "Cost: " + strData[1] + "/-";
+                totalAmount += Float.parseFloat(strData[1]);
+            }
+
+            tvTotal.setText("Total Cost: " + totalAmount);
+
+            list = new ArrayList();
+            for (int i = 0; i < packages.length; i++) {
+                item = new HashMap<String, String>();
+                item.put("line1", packages[i][0]);
+                item.put("line5", packages[i][4]);
+                list.add(item);
+            }
+
+            sa = new SimpleAdapter(this, list, R.layout.mutilines_add_delete,
+                    new String[]{"line1", "line5"},
+                    new int[]{R.id.line_a, R.id.line_b});
+            lst.setAdapter(sa);
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Error loading cart items", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+
+    // Helper method to extract price from text like "Cost: 50/-"
+    private float extractPriceFromText(String costText) {
+        try {
+            // Remove all non-digit characters except decimal point
+            String priceStr = costText.replaceAll("[^\\d.]", "");
+            return Float.parseFloat(priceStr);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    // Helper method to get unit price from your packages array
+    private float getUnitPrice(String productName) {
+        // Find the product in your original packages array from BuyMedicineActivity
+        for (String[] medicine : BuyMedicineActivity.packages) {
+            if (medicine[0].equals(productName)) {
+                try {
+                    return Float.parseFloat(medicine[4]); // Price is at index 4
+                } catch (NumberFormatException e) {
+                    return 0;
+                }
+            }
+        }
+        return 0;
+    }
+
+    private void updateTotalPrice() {
+        float total = 0;
+        for (String[] item : packages) {
+            if (item != null && item.length > 1) {
+                try {
+                    total += Float.parseFloat(item[1]);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        tvTotal.setText("Total Cost: " + total);
+    }
+    public void onRemoveClick(View view) {
+        View parentRow = (View) view.getParent().getParent();
+        ListView listView = (ListView) parentRow.getParent();
+        final int position = listView.getPositionForView(parentRow);
+        String productName = packages[position][0];
+        db.removeItemFromCart(username, productName);
+        loadCartItems();
+    }
+
     private void setCurrentDate() {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String currentDate = sdf.format(cal.getTime());
-        dateButton.setText(currentDate); // Set the current date to the date button
+        dateButton.setText(currentDate);
     }
 
     private void initDatePicker() {
-        // Set up the date picker
-        dateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
+        dateButton.setOnClickListener(v -> {
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                // Create a DatePickerDialog
-                DatePickerDialog datePickerDialog = new DatePickerDialog(CartBuyMedicineActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                                // Update the button text with the selected date
-                                dateButton.setText(day + "/" + (month + 1) + "/" + year); // Month is 0-based
-                            }
-                        }, year, month, day);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(CartBuyMedicineActivity.this,
+                    (datePicker, year1, month1, dayOfMonth) ->
+                            dateButton.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1),
+                    year, month, day);
 
-                // Disable previous dates
-                datePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis()); // Set minimum date to today
-                datePickerDialog.show();
-            }
+            datePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis());
+            datePickerDialog.show();
         });
     }
 }
