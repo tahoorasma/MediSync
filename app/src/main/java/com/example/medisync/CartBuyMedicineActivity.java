@@ -111,21 +111,70 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-    // Helper method to extract price from text like "Cost: 50/-"
     private float extractPriceFromText(String costText) {
         try {
-            // Remove all non-digit characters except decimal point
             String priceStr = costText.replaceAll("[^\\d.]", "");
             return Float.parseFloat(priceStr);
         } catch (NumberFormatException e) {
             return 0;
         }
     }
+    public void onAddClick(View view) {
+        View parentRow = (View) view.getParent().getParent();
+        ListView listView = (ListView) parentRow.getParent();
+        final int position = listView.getPositionForView(parentRow);
+        String costText = packages[position][4];
+        float currentPrice = extractPriceFromText(costText);
+        float unitPrice = getUnitPrice(packages[position][0]);
+        float newPrice = currentPrice + unitPrice;
+        packages[position][4] = "Cost: " + newPrice + "/-";
+        packages[position][1] = String.valueOf(newPrice);
+        TextView tvQuantity = parentRow.findViewById(R.id.tvQuantity);
+        try {
+            int currentQty = Integer.parseInt(tvQuantity.getText().toString());
+            tvQuantity.setText(String.valueOf(currentQty + 1));
+        } catch (NumberFormatException e) {
+            tvQuantity.setText("1");
+        }
+        ContentValues cv = new ContentValues();
+        cv.put("price", newPrice);
+        db.getWritableDatabase().update("cart", cv,
+                "username = ? AND product = ? AND otype = ?",
+                new String[]{username, packages[position][0], "medicine"});
 
-    // Helper method to get unit price from your packages array
+        // Update total
+        updateTotalPrice();
+    }
+
+    public void onMinusClick(View view) {
+        View parentRow = (View) view.getParent().getParent();
+        ListView listView = (ListView) parentRow.getParent();
+        final int position = listView.getPositionForView(parentRow);
+        TextView tvQuantity = parentRow.findViewById(R.id.tvQuantity);
+        try {
+            int currentQty = Integer.parseInt(tvQuantity.getText().toString());
+            if (currentQty > 1) {
+                String costText = packages[position][4];
+                float currentPrice = extractPriceFromText(costText);
+                float unitPrice = getUnitPrice(packages[position][0]);
+                float newPrice = currentPrice - unitPrice;
+                packages[position][4] = "Cost: " + newPrice + "/-";
+                packages[position][1] = String.valueOf(newPrice);
+                tvQuantity.setText(String.valueOf(currentQty - 1));
+                ContentValues cv = new ContentValues();
+                cv.put("price", newPrice);
+                db.getWritableDatabase().update("cart", cv,
+                        "username = ? AND product = ? AND otype = ?",
+                        new String[]{username, packages[position][0], "medicine"});
+                updateTotalPrice();
+            } else {
+                Toast.makeText(this, "Quantity cannot be less than 1", Toast.LENGTH_SHORT).show();
+            }
+        } catch (NumberFormatException e) {
+            tvQuantity.setText("1");
+        }
+    }
     private float getUnitPrice(String productName) {
-        // Find the product in your original packages array from BuyMedicineActivity
         for (String[] medicine : BuyMedicineActivity.packages) {
             if (medicine[0].equals(productName)) {
                 try {
