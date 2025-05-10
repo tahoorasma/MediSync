@@ -34,7 +34,7 @@ public class Database extends SQLiteOpenHelper {
 
         @Override
         public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-            if (oldVersion < 7) {
+            if (oldVersion < 8) {
                 sqLiteDatabase.execSQL("DROP TABLE IF EXISTS orderplace");
                 String qry3 = "CREATE TABLE orderplace (" +
                         "username TEXT, fullname TEXT, address TEXT, contactno TEXT, " +
@@ -131,15 +131,11 @@ public class Database extends SQLiteOpenHelper {
             float currentTotalPrice = cursor.getFloat(0);
             cursor.close();
             float unitPrice = currentTotalPrice;
-            // Calculate new total price
             float newTotalPrice = currentTotalPrice + (unitPrice * change);
-
-            // Don't allow price to go below unit price (quantity 1)
             if (newTotalPrice < unitPrice) {
                 newTotalPrice = unitPrice;
             }
 
-            // Update the price in the database
             ContentValues cv = new ContentValues();
             cv.put("price", newTotalPrice);
             db.update("cart", cv, "username = ? AND product = ? AND otype = ?",

@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class CartBuyMedicineActivity extends AppCompatActivity {
-
     HashMap<String,String> item;
     ArrayList list;
     ListView lst;
@@ -85,12 +84,11 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
             for (int i = 0; i < dbData.size(); i++) {
                 String arrData = dbData.get(i);
                 String[] strData = arrData.split(java.util.regex.Pattern.quote("$"));
-                packages[i][0] = strData[0]; // product name
-                packages[i][1] = strData[1]; // price
+                packages[i][0] = strData[0];
+                packages[i][1] = strData[1];
                 packages[i][4] = "Cost: " + strData[1] + "/-";
                 totalAmount += Float.parseFloat(strData[1]);
             }
-
             tvTotal.setText("Total Cost: " + totalAmount);
 
             list = new ArrayList();
@@ -100,7 +98,6 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
                 item.put("line5", packages[i][4]);
                 list.add(item);
             }
-
             sa = new SimpleAdapter(this, list, R.layout.mutilines_add_delete,
                     new String[]{"line1", "line5"},
                     new int[]{R.id.line_a, R.id.line_b});
@@ -142,7 +139,6 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
                 "username = ? AND product = ? AND otype = ?",
                 new String[]{username, packages[position][0], "medicine"});
 
-        // Update total
         updateTotalPrice();
     }
 
@@ -178,7 +174,7 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
         for (String[] medicine : BuyMedicineActivity.packages) {
             if (medicine[0].equals(productName)) {
                 try {
-                    return Float.parseFloat(medicine[4]); // Price is at index 4
+                    return Float.parseFloat(medicine[4]);
                 } catch (NumberFormatException e) {
                     return 0;
                 }
@@ -227,7 +223,6 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
                     (datePicker, year1, month1, dayOfMonth) ->
                             dateButton.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1),
                     year, month, day);
-
             datePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis());
             datePickerDialog.show();
         });
